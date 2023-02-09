@@ -8,11 +8,8 @@ const ToDoList = ({ setToDoList }) => {
   const dispatch = useDispatch();
   const toDoList = useSelector((state) => state.toDoList);
 
-  const deleteHandler = (id) => {
+  const deleteHandler = (id: any) => {
     dispatch(removeToDo(id));
-  };
-  const completeHandler = (id, completed) => {
-    dispatch(completedToDo({ id, completed }));
   };
 
   const toDoListItems = toDoList.filter((el) => el.completed === false);
@@ -29,11 +26,7 @@ const ToDoList = ({ setToDoList }) => {
           toDoListItems.map((item) => (
             <ListItems
               key={item.id}
-              id={item.id}
-              completed={item.completed}
-              text={item.text}
-              completeHandler={completeHandler}
-              deleteHandler={deleteHandler}
+              item={item}
             />
           ))
         )}
@@ -47,11 +40,7 @@ const ToDoList = ({ setToDoList }) => {
           completedListItems.map((item) => (
             <ListItems
               key={item.id}
-              id={item.id}
-              completed={item.completed}
-              text={item.text}
-              completeHandler={completeHandler}
-              deleteHandler={deleteHandler}
+             item={item}
             />
           ))
         )}

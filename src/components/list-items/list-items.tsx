@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle, faCircle } from "@fortawesome/free-regular-svg-icons";
@@ -7,13 +8,22 @@ import "animate.css";
 // for redux purposes
 import { useDispatch } from "react-redux";
 import { toggleStatusToDo, removeToDo } from "../../redux/to-do/toDoSlice";
+import React from "react";
 
-const ListItems = ({ id, completed, text }) => {
+interface ListItemsProps {
+  item: {
+    id: string;
+    completed: boolean;
+    text: string;
+  }
+}
+const ListItems = ({ item } : ListItemsProps ) => {
+  const { id, completed, text } = item;
   const dispatch = useDispatch();
-  const [done, setDone] = useState(completed);
+  const [done, setDone] = useState<boolean>(completed);
   const [animate, setAnimate] = useState(false);
 
-  const waitAndComplete = (event, id) => {
+  const waitAndComplete = () => {
     setDone((prev) => !prev);
     setAnimate(true);
     setTimeout(() => {
@@ -21,8 +31,9 @@ const ListItems = ({ id, completed, text }) => {
       setAnimate(false);
     }, 500);
   };
-  const waitAndDelete = (e, id) => {
-    e.target.classList.add("animate__animated", "animate__zoomOut");
+  const waitAndDelete = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const target = e.target as HTMLElement;
+    target.classList.add("animate__animated", "animate__zoomOut");
     setTimeout(() => {
       dispatch(removeToDo(id));
     }, 500);
@@ -45,7 +56,7 @@ const ListItems = ({ id, completed, text }) => {
           icon={icon}
           className={`mr-2  ${color}
           ${animate ? animateClass : ""}`}
-          onClick={(e) => waitAndComplete(e, id)}
+          onClick={waitAndComplete}
           size="2x"
         />
         <p className="text-gray-700 px-4 py-2">
@@ -54,7 +65,7 @@ const ListItems = ({ id, completed, text }) => {
       </div>
       <button
         className={`bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full`}
-        onClick={(e) => waitAndDelete(e, id)}
+        onClick={(e) => waitAndDelete(e)}
       >
         Delete
       </button>
