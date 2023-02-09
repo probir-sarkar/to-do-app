@@ -1,30 +1,22 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faArrowRight } from "@fortawesome/free-solid-svg-icons";
-const ToDoInput = ({
-  className,
-  toDoItem,
-  setToDoItem,
-  toDoList,
-  setToDoList,
-}) => {
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { addToDo } from "../../redux/to-do/toDoSlice";
+
+const ToDoInput = ({ className, setToDoList }) => {
+  const [toDoItem, setToDoItem] = useState("");
+  const dispatch = useDispatch();
   // This function is called when the user clicks the "Add" button
+
   const handleAddToDo = () => {
     // If the user has not entered anything, do nothing
     if (toDoItem === "") {
       return;
     }
-    // Add the new item to the list
-    setToDoList([
-      ...toDoList,
-      {
-        id: toDoList.length,
-        text: toDoItem,
-        completed: false,
-      },
-    ]);
-    // Clear the input field
+
+    dispatch(addToDo(toDoItem));
     setToDoItem("");
-    console.log(toDoList);
   };
   return (
     <div className={`relative flex justify-center items-center ${className}`}>

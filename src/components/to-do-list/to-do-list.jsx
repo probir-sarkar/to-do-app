@@ -1,20 +1,18 @@
 import ListItems from "../list-items/list-items";
-const ToDoList = ({ toDoList, setToDoList }) => {
+
+// for redux purposes
+import { useSelector, useDispatch } from "react-redux";
+import { removeToDo } from "../../redux/to-do/toDoSlice";
+
+const ToDoList = ({ setToDoList }) => {
+  const dispatch = useDispatch();
+  const toDoList = useSelector((state) => state.toDoList);
+
   const deleteHandler = (id) => {
-    setToDoList(toDoList.filter((el) => el.id !== id));
+    dispatch(removeToDo(id));
   };
   const completeHandler = (id, completed) => {
-    setToDoList(
-      toDoList.map((item) => {
-        if (item.id === id) {
-          return {
-            ...item,
-            completed: !completed,
-          };
-        }
-        return item;
-      })
-    );
+    dispatch(completedToDo({ id, completed }));
   };
 
   const toDoListItems = toDoList.filter((el) => el.completed === false);

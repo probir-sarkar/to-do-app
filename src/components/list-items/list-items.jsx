@@ -4,21 +4,27 @@ import { faCheckCircle, faCircle } from "@fortawesome/free-regular-svg-icons";
 
 import "animate.css";
 
-const ListItems = ({ id, completed, text, completeHandler, deleteHandler }) => {
+// for redux purposes
+import { useDispatch } from "react-redux";
+import { toggleStatusToDo, removeToDo } from "../../redux/to-do/toDoSlice";
+
+const ListItems = ({ id, completed, text }) => {
+  const dispatch = useDispatch();
   const [done, setDone] = useState(completed);
   const [animate, setAnimate] = useState(false);
+
   const waitAndComplete = (event, id) => {
     setDone((prev) => !prev);
     setAnimate(true);
     setTimeout(() => {
-      completeHandler(id, completed);
+      dispatch(toggleStatusToDo(id));
       setAnimate(false);
     }, 500);
   };
   const waitAndDelete = (e, id) => {
     e.target.classList.add("animate__animated", "animate__zoomOut");
     setTimeout(() => {
-      deleteHandler(id);
+      dispatch(removeToDo(id));
     }, 500);
   };
 
@@ -42,7 +48,9 @@ const ListItems = ({ id, completed, text, completeHandler, deleteHandler }) => {
           onClick={(e) => waitAndComplete(e, id)}
           size="2x"
         />
-        <p className="text-gray-700 px-4 py-2">{text}</p>
+        <p className="text-gray-700 px-4 py-2">
+          {done ? <del>{text}</del> : text}
+        </p>
       </div>
       <button
         className={`bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full`}
