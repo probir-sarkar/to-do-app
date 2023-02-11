@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle, faCircle } from "@fortawesome/free-regular-svg-icons";
@@ -15,9 +14,9 @@ interface ListItemsProps {
     id: string;
     completed: boolean;
     text: string;
-  }
+  };
 }
-const ListItems = ({ item } : ListItemsProps ) => {
+const ListItem = ({ item }: ListItemsProps) => {
   const { id, completed, text } = item;
   const dispatch = useDispatch();
   const [done, setDone] = useState<boolean>(completed);
@@ -31,7 +30,9 @@ const ListItems = ({ item } : ListItemsProps ) => {
       setAnimate(false);
     }, 500);
   };
-  const waitAndDelete = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const waitAndDelete = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     const target = e.target as HTMLElement;
     target.classList.add("animate__animated", "animate__zoomOut");
     setTimeout(() => {
@@ -46,7 +47,7 @@ const ListItems = ({ item } : ListItemsProps ) => {
     : "animate__animated animate__bounceOut";
 
   return (
-    <li
+    <div
       className={`flex justify-between items-center bg-gray-100 rounded-full my-2 p-2 mx-auto 
           ${done ? "bg-green-100" : ""}
           `}
@@ -69,7 +70,7 @@ const ListItems = ({ item } : ListItemsProps ) => {
       >
         Delete
       </button>
-    </li>
+    </div>
   );
 };
-export default ListItems;
+export default ListItem;

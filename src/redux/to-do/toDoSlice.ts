@@ -5,6 +5,11 @@ import { toDoInitialStage } from "./toDoInitialStage";
 
 const initialState = toDoInitialStage();
 
+export interface toDoItemInterface {
+  id: string;
+  text: string;
+  completed: boolean;
+}
 
 export const toDoSlice = createSlice({
   name: "toDo",
@@ -21,12 +26,14 @@ export const toDoSlice = createSlice({
     },
 
     removeToDo: (state, { payload }) => {
-      const newState = state.filter((toDo:toDoInterface) => toDo.id !== payload);
+      const newState = state.filter(
+        (toDo: toDoItemInterface) => toDo.id !== payload
+      );
       return newState;
     },
 
     toggleStatusToDo: (state, { payload }) => {
-      const newState = state.map((toDo: toDoInterface) => {
+      const newState = state.map((toDo: toDoItemInterface) => {
         if (toDo.id === payload) {
           return { ...toDo, completed: !toDo.completed };
         }
@@ -37,7 +44,6 @@ export const toDoSlice = createSlice({
   },
 });
 
-export const { addToDo, removeToDo, toggleStatusToDo, } =
-  toDoSlice.actions;
+export const { addToDo, removeToDo, toggleStatusToDo } = toDoSlice.actions;
 
 export default toDoSlice.reducer;

@@ -43,7 +43,7 @@ const ToDoContainer = () => {
         <ToDoList />
       </div>
       <div className="pt-5 h-1/6 flex items-center">
-        <ToDoInput className="w-full" />
+        <ToDoInput  />
       </div>
     </div>
   );
