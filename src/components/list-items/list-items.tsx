@@ -30,9 +30,7 @@ const ListItem = ({ item }: ListItemsProps) => {
       setAnimate(false);
     }, 500);
   };
-  const waitAndDelete = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const waitAndDelete = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const target = e.target as HTMLElement;
     target.classList.add("animate__animated", "animate__zoomOut");
     setTimeout(() => {
@@ -60,9 +58,7 @@ const ListItem = ({ item }: ListItemsProps) => {
           onClick={waitAndComplete}
           size="2x"
         />
-        <p className="text-gray-700 px-4 py-2">
-          {done ? <del>{text}</del> : text}
-        </p>
+        <p className="text-gray-700 px-4 py-2">{done ? <del>{text}</del> : text}</p>
       </div>
       <button
         className={`bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full`}
