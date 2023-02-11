@@ -28,6 +28,8 @@ export const toDoInitialStage = () => {
       completed: true,
     },
   ];
-  const toDoList = JSON.parse(localStorage.getItem("toDoList")) || initialState;
-  return toDoList;
+
+const storedToDoList = localStorage.getItem("toDoList");
+return storedToDoList ? JSON.parse(storedToDoList) : initialState;
+
 };

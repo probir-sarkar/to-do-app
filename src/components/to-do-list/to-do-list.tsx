@@ -1,19 +1,17 @@
+import React from "react";
 import ListItems from "../list-items/list-items";
 
 // for redux purposes
 import { useSelector, useDispatch } from "react-redux";
-import { removeToDo } from "../../redux/to-do/toDoSlice";
+import { selectToDoList } from "../../redux/to-do/toDoSelector";
 
-const ToDoList = ({ setToDoList }) => {
-  const dispatch = useDispatch();
-  const toDoList = useSelector((state) => state.toDoList);
+import { RootState,toDoItem } from "../../redux/store";
 
-  const deleteHandler = (id: any) => {
-    dispatch(removeToDo(id));
-  };
+const ToDoList = ({ }) => {
+const toDoList: RootState["toDoList"]  = useSelector(selectToDoList);
 
-  const toDoListItems = toDoList.filter((el) => el.completed === false);
-  const completedListItems = toDoList.filter((el) => el.completed === true);
+ const toDoListItems  = toDoList.filter((el) => el.completed === false);
+ const completedListItems = toDoList.filter((el) => el.completed === true);
 
   return (
     <div className="h-full overflow-y-auto">
@@ -23,10 +21,10 @@ const ToDoList = ({ setToDoList }) => {
         {toDoListItems.length === 0 ? (
           <p className="text-gray-700">No items to do</p>
         ) : (
-          toDoListItems.map((item) => (
+          toDoListItems.map((item:toDoItem) => (
             <ListItems
               key={item.id}
-              item={item}
+              item ={item}
             />
           ))
         )}
@@ -37,7 +35,7 @@ const ToDoList = ({ setToDoList }) => {
         {completedListItems.length === 0 ? (
           <p className="text-gray-700">No items completed</p>
         ) : (
-          completedListItems.map((item) => (
+          completedListItems.map((item: { id: any; completed?: boolean; text?: string; }) => (
             <ListItems
               key={item.id}
              item={item}

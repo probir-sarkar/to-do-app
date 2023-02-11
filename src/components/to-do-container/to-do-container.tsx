@@ -6,8 +6,12 @@ import "./to-do-container.css";
 // for redux purposes
 import { useSelector } from "react-redux";
 
+
+import {selectToDoList} from "../../redux/to-do/toDoSelector";
+import React from "react";
+
 const ToDoContainer = () => {
-  const toDoListRedux = useSelector((state) => state.toDoList);
+  const toDoListRedux = useSelector(selectToDoList);
   const [height, setHeight] = useState("0px");
 
   // store the list of to do items in local storage
