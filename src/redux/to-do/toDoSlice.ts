@@ -3,7 +3,7 @@ import { nanoid } from "nanoid";
 
 import { toDoInitialStage } from "./toDoInitialStage";
 
-const initialState = toDoInitialStage();
+const initialState = toDoInitialStage;
 
 export interface toDoItemInterface {
   id: string;
@@ -26,9 +26,7 @@ export const toDoSlice = createSlice({
     },
 
     removeToDo: (state, { payload }) => {
-      const newState = state.filter(
-        (toDo: toDoItemInterface) => toDo.id !== payload
-      );
+      const newState = state.filter((toDo: toDoItemInterface) => toDo.id !== payload);
       return newState;
     },
 
