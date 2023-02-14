@@ -4,15 +4,22 @@ import ListItem from "../list-items/list-items";
 // for redux purposes
 import { useSelector } from "react-redux";
 import { selectToDoList } from "../../redux/to-do/toDoSelector";
-
+import { useEffect } from "react";
 import { RootState } from "../../redux/store";
 import { toDoItemInterface } from "../../redux/to-do/toDoSlice";
+import { updateFirebase } from "../../firebase/firebase";
 
 const ToDoList = ({}) => {
   const toDoList: RootState["toDoList"] = useSelector(selectToDoList);
-
   const toDoListItems = toDoList.filter((el) => el.completed === false);
   const completedListItems = toDoList.filter((el) => el.completed === true);
+
+  useEffect(() => {
+    console.log("toDoList", toDoList);
+
+    if (toDoList.length === 0) return;
+    updateFirebase(toDoList);
+  }, [toDoList]);
 
   return (
     <div className="h-full overflow-y-auto">

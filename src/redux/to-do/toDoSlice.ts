@@ -1,17 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { nanoid } from "nanoid";
 import { toDoInitialStage } from "./toDoInitialStage";
-import { updateFirebase } from "../../firebase/firebase.js";
-import { useEffect } from "react";
-
-const initialState = toDoInitialStage;
 
 export interface toDoItemInterface {
   id: string;
   text: string;
   completed: boolean;
 }
-
+const initialState = toDoInitialStage as toDoItemInterface[];
 export const toDoSlice = createSlice({
   name: "toDo",
   initialState,
@@ -41,7 +37,6 @@ export const toDoSlice = createSlice({
       return newState;
     },
     updateToDo: (state, { payload }) => {
-      console.log("updateToDo", payload);
       return [...payload];
     },
   },

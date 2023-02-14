@@ -15,14 +15,22 @@ const firebaseConfig = {
   appId: "1:999858928078:web:d2d164a6ab7f2f6781939f",
 };
 
+export interface toDoItemInterface {
+  id: string;
+  text: string;
+  completed: boolean;
+}
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const todoRef = ref(db, "to-do");
 onValue(todoRef, (snapshot) => {
   const data = snapshot.val();
-  store.dispatch(updateToDo(data));
+  if (data) {
+    store.dispatch(updateToDo(data));
+  }
 });
-export const updateFirebase = (value: []) => {
+export const updateFirebase = (value: toDoItemInterface[]) => {
   set(todoRef, value);
 };
