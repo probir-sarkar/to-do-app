@@ -29,6 +29,8 @@ onValue(todoRef, (snapshot) => {
   const data = snapshot.val();
   if (data) {
     store.dispatch(updateToDo(data));
+  } else {
+    store.dispatch(updateToDo([]));
   }
 });
 export const updateFirebase = (value: toDoItemInterface[]) => {
