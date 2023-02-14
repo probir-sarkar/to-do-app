@@ -21,6 +21,9 @@ const ToDoList = ({}) => {
       initialRender.current = false;
       return;
     }
+    if (toDoList.length === 0) {
+      updateFirebase([]);
+    }
     updateFirebase(toDoList);
   }, [toDoList]);
 
