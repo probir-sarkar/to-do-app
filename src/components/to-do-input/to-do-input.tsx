@@ -1,17 +1,20 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToDo } from "../../redux/to-do/toDoSlice";
+import { addToDoActions } from "../../redux/to-do/toDoActions";
+import ToDoList from "../to-do-list/to-do-list";
 
 const ToDoInput = () => {
   const [toDoItem, setToDoItem] = useState("");
   const dispatch = useDispatch();
+  const todo = useSelector((state) => state.ToDoList);
   const handleAddToDo = () => {
     if (toDoItem === "") {
       return;
     }
-    dispatch(addToDo(toDoItem));
+    dispatch(addToDoActions(todo, toDoItem));
     setToDoItem("");
   };
 

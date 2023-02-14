@@ -13,13 +13,7 @@ export const toDoSlice = createSlice({
   initialState,
   reducers: {
     addToDo: (state, { payload }) => {
-      const newToDo = {
-        id: nanoid(),
-        text: payload,
-        completed: false,
-      };
-      const newState = [...state, newToDo];
-      return newState;
+      return [...payload];
     },
 
     removeToDo: (state, { payload }) => {
