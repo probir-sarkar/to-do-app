@@ -4,21 +4,37 @@ import { faCheckCircle, faCircle } from "@fortawesome/free-regular-svg-icons";
 
 import "animate.css";
 
-const ListItems = ({ id, completed, text, completeHandler, deleteHandler }) => {
-  const [done, setDone] = useState(completed);
+// for redux purposes
+import { useDispatch } from "react-redux";
+import { toggleStatusToDo, removeToDo } from "../../redux/to-do/toDoSlice";
+import React from "react";
+
+interface ListItemsProps {
+  item: {
+    id: string;
+    completed: boolean;
+    text: string;
+  };
+}
+const ListItem = ({ item }: ListItemsProps) => {
+  const { id, completed, text } = item;
+  const dispatch = useDispatch();
+  const [done, setDone] = useState<boolean>(completed);
   const [animate, setAnimate] = useState(false);
-  const waitAndComplete = (event, id) => {
+
+  const waitAndComplete = () => {
     setDone((prev) => !prev);
     setAnimate(true);
     setTimeout(() => {
-      completeHandler(id, completed);
+      dispatch(toggleStatusToDo(id));
       setAnimate(false);
     }, 500);
   };
-  const waitAndDelete = (e, id) => {
-    e.target.classList.add("animate__animated", "animate__zoomOut");
+  const waitAndDelete = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const target = e.target as HTMLElement;
+    target.classList.add("animate__animated", "animate__zoomOut");
     setTimeout(() => {
-      deleteHandler(id);
+      dispatch(removeToDo(id));
     }, 500);
   };
 
@@ -29,7 +45,7 @@ const ListItems = ({ id, completed, text, completeHandler, deleteHandler }) => {
     : "animate__animated animate__bounceOut";
 
   return (
-    <li
+    <div
       className={`flex justify-between items-center bg-gray-100 rounded-full my-2 p-2 mx-auto 
           ${done ? "bg-green-100" : ""}
           `}
@@ -39,18 +55,18 @@ const ListItems = ({ id, completed, text, completeHandler, deleteHandler }) => {
           icon={icon}
           className={`mr-2  ${color}
           ${animate ? animateClass : ""}`}
-          onClick={(e) => waitAndComplete(e, id)}
+          onClick={waitAndComplete}
           size="2x"
         />
-        <p className="text-gray-700 px-4 py-2">{text}</p>
+        <p className="text-gray-700 px-4 py-2">{done ? <del>{text}</del> : text}</p>
       </div>
       <button
         className={`bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full`}
-        onClick={(e) => waitAndDelete(e, id)}
+        onClick={(e) => waitAndDelete(e)}
       >
         Delete
       </button>
-    </li>
+    </div>
   );
 };
-export default ListItems;
+export default ListItem;
