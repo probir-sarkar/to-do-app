@@ -7,13 +7,6 @@ import storage from "redux-persist/lib/storage";
 
 import { combineReducers } from "redux";
 
-
-const rootReducer = combineReducers({
-  toDoList: toDoSlice,
-});
-
-import { combineReducers } from "redux";
-
 const rootReducer = combineReducers({
   toDoList: toDoSlice,
 });
@@ -26,14 +19,6 @@ const persistConfig = {
   storage,
 };
 
-<<<<<<< HEAD
-const store = configureStore({
-  reducer: rootReducer,
-  middleware: [thunk],
-});
-
-export { store };
-=======
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({
@@ -47,4 +32,3 @@ const store = configureStore({
 const persistor = persistStore(store);
 
 export { store, persistor };
->>>>>>> 4affa5a16cbc15e0c955097fd99167a2544f4b2d
