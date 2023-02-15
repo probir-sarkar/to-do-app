@@ -25,6 +25,7 @@ export interface toDoItemInterface {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const todoRef = ref(db, "to-do");
+
 onValue(todoRef, (snapshot) => {
   const data = snapshot.val();
   if (data) {

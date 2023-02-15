@@ -1,28 +1,22 @@
-import React from "react";
 import ListItem from "../list-items/list-items";
 
 // for redux purposes
 import { useSelector } from "react-redux";
 import { selectToDoList } from "../../redux/to-do/toDoSelector";
-import { useEffect, useRef } from "react";
-import { RootState } from "../../redux/store";
+import { useEffect } from "react";
 import { toDoItemInterface } from "../../redux/to-do/toDoSlice";
 import { updateFirebase } from "../../firebase/firebase";
 
 const ToDoList = ({}) => {
-  const toDoList: RootState["toDoList"] = useSelector(selectToDoList);
+  const toDoList = useSelector(selectToDoList) as toDoItemInterface[];
   const toDoListItems = toDoList.filter((el) => el.completed === false);
   const completedListItems = toDoList.filter((el) => el.completed === true);
-  const initialRender = useRef(true);
 
   useEffect(() => {
-    console.log("toDoList", toDoList);
-    if (initialRender.current) {
-      initialRender.current = false;
+    console.log("Something changed");
+
+    if (toDoList[0] && toDoList[0].waiting === true) {
       return;
-    }
-    if (toDoList.length === 0) {
-      updateFirebase([]);
     }
     updateFirebase(toDoList);
   }, [toDoList]);
