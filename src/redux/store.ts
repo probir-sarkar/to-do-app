@@ -23,7 +23,7 @@ export interface RootState {
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["toDoList"],
+  // blacklist: ["toDoList"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
