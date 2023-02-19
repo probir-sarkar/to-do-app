@@ -14,6 +14,11 @@ const rootReducer = combineReducers({
 
 export interface RootState {
   toDoList: toDoItemInterface[];
+  user: {
+    name: string;
+    email: string;
+    uid: string;
+  };
 }
 const persistConfig = {
   key: "root",

@@ -5,9 +5,10 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./components/login/login";
 import { useState, useEffect } from "react";
 import Signup from "./components/signup/signup";
+import PrivateRoute from "./utils/private-route";
 
 const BrowserRouter = createBrowserRouter([
-  { path: "/", element: <ToDoContainer /> },
+  { path: "/", element: <PrivateRoute component={ToDoContainer} /> },
   { path: "/login", element: <Login /> },
   { path: "/signup", element: <Signup /> },
 ]);

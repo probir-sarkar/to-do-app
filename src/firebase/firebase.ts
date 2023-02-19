@@ -1,7 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, set, onValue } from "firebase/database";
-
 import { store } from "../redux/store";
 import { updateToDo } from "../redux/to-do/toDoSlice";
 
@@ -23,18 +22,22 @@ export interface toDoItemInterface {
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
-
+const email = store.getState().user.email;
+const userId = store.getState().user.uid;
 const db = getDatabase(app);
-const todoRef = ref(db, "to-do");
+const todoRef = ref(db, "users/" + userId);
 
 onValue(todoRef, (snapshot) => {
-  const data = snapshot.val();
+  const data = snapshot.val()?.ToDoList;
   if (data) {
     store.dispatch(updateToDo(data));
   } else {
     store.dispatch(updateToDo([]));
   }
 });
-export const updateFirebase = (value: toDoItemInterface[]) => {
-  set(todoRef, value);
+
+export const updateFirebase = (value: toDoItemInterface[], userId) => {
+  set(ref(db, "users/" + userId), {
+    ToDoList: value,
+  });
 };
