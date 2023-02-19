@@ -22,21 +22,12 @@ const ToDoList = ({}) => {
 
   useEffect(() => {
     const database = getDatabase();
-    const dataRef = ref(database, `users/${userId}`);
-    onValue(
-      dataRef,
-      (snapshot) => {
-        if (snapshot.val() === null) {
-          dispatch(updateToDo([]));
-        } else {
-          const data = snapshot.val().ToDoList;
-          console.log(data);
-          dispatch(updateToDo(data));
-        }
-        setDataUpdated(true);
-      },
-      { onlyOnce: true }
-    );
+    const toDoListRef = ref(database, `users/${userId}/ToDoList`);
+    onValue(toDoListRef, (snapshot) => {
+      const data = snapshot.val() || [];
+      dispatch(updateToDo(data));
+    });
+    setDataUpdated(true);
   }, []);
 
   useEffect(() => {

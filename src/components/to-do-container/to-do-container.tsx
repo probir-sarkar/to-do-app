@@ -1,14 +1,17 @@
-import { useState, useEffect, useRef } from "react";
 import ToDoInput from "../to-do-input/to-do-input";
 import ToDoList from "../to-do-list/to-do-list";
 import "./to-do-container.css";
 import { auth } from "../../firebase/auth";
 import { signOut } from "firebase/auth";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../redux/user/userSlice";
 
 const ToDoContainer = () => {
+  const dispatch = useDispatch();
   const handleLogout = () => {
     signOut(auth)
       .then(() => {
+        dispatch(setUser({ email: "", uid: "" }));
         console.log("User signed out");
       })
       .catch((error) => {
