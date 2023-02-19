@@ -5,6 +5,7 @@ import { auth } from "../../firebase/auth";
 import { signOut } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/user/userSlice";
+import { updateToDo } from "../../redux/to-do/toDoSlice";
 
 const ToDoContainer = () => {
   const dispatch = useDispatch();
@@ -12,6 +13,7 @@ const ToDoContainer = () => {
     signOut(auth)
       .then(() => {
         dispatch(setUser({ email: "", uid: "" }));
+        dispatch(updateToDo([]));
         console.log("User signed out");
       })
       .catch((error) => {
