@@ -2,15 +2,19 @@ import ListItem from "../list-items/list-items";
 
 // for redux purposes
 import { useSelector } from "react-redux";
-import { selectToDoList } from "../../redux/to-do/toDoSelector";
+import {
+  selectToDoList,
+  selectToDoListCompleted,
+  selectToDoListUncompleted,
+} from "../../redux/to-do/toDoSelector";
 import { useEffect } from "react";
 import { toDoItemInterface } from "../../redux/to-do/toDoSlice";
 import { updateFirebase } from "../../firebase/firebase";
 
 const ToDoList = ({}) => {
   const toDoList = useSelector(selectToDoList) as toDoItemInterface[];
-  const toDoListItems = toDoList.filter((el) => el.completed === false);
-  const completedListItems = toDoList.filter((el) => el.completed === true);
+  const uncompletedListItems = useSelector(selectToDoListUncompleted) as toDoItemInterface[];
+  const completedListItems = useSelector(selectToDoListCompleted) as toDoItemInterface[];
 
   useEffect(() => {
     console.log("Something changed");
@@ -26,12 +30,12 @@ const ToDoList = ({}) => {
       {/* to do title with style */}
       <h1 className="text-xl font-bold text-gray-700 my-4">To Do</h1>
       <ul>
-        {toDoListItems.length === 0 ? (
+        {uncompletedListItems.length === 0 ? (
           <li>
             <p className="text-gray-700">No items to do</p>
           </li>
         ) : (
-          toDoListItems.map((item: toDoItemInterface) => (
+          uncompletedListItems.map((item: toDoItemInterface) => (
             <li key={item.id}>
               <ListItem item={item} />
             </li>

@@ -17,8 +17,8 @@ const ToDoInput = () => {
 
   return (
     <>
-      <div className="relative flex justify-center items-center w-full">
-        <div className="w-full flex justify-between items-center bg-gray-100 rounded-full my-2 p-2">
+      <div className=" w-11/12 md:w-8/12 lg:w-6/12 mx-auto">
+        <div className="bg-gray-100 flex p-2 rounded-full">
           {/* input */}
           <input
             type="text"

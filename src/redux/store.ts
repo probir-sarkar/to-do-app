@@ -5,9 +5,11 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
 import { combineReducers } from "redux";
+import userSlice from "../redux/user/userSlice";
 
 const rootReducer = combineReducers({
   toDoList: toDoSlice,
+  user: userSlice,
 });
 
 export interface RootState {

@@ -22,7 +22,8 @@ export interface toDoItemInterface {
 }
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
+
 const db = getDatabase(app);
 const todoRef = ref(db, "to-do");
 
