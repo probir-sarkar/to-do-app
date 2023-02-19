@@ -23,6 +23,7 @@ export interface RootState {
 const persistConfig = {
   key: "root",
   storage,
+  blacklist: ["toDoList"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -32,6 +33,7 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
+      thunk: true,
     }),
 });
 

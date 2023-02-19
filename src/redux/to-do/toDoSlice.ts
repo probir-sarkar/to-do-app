@@ -3,13 +3,10 @@ import { nanoid } from "nanoid";
 import { toDoInitialStage } from "./toDoInitialStage";
 import _ from "lodash";
 
-import performance from "performance-now";
-
 export interface toDoItemInterface {
   id: string;
   text: string;
   completed: boolean;
-  waiting?: boolean;
 }
 
 const initialState = toDoInitialStage as toDoItemInterface[];
@@ -42,8 +39,7 @@ export const toDoSlice = createSlice({
       return newState;
     },
     updateToDo: (state, { payload }) => {
-      const isEqual = _.isEqual(state, payload);
-      isEqual ? state : payload;
+      return payload;
     },
   },
 });

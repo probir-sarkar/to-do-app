@@ -3,6 +3,7 @@ export const initialUserState = {
   uid: "",
   name: "",
   email: "",
+  updating: false,
 };
 
 const userSlice = createSlice({
@@ -13,9 +14,12 @@ const userSlice = createSlice({
       state.email = email;
       state.uid = uid;
     },
+    changeUpdating(state, { payload }) {
+      state.updating = payload;
+    },
   },
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUser, changeUpdating } = userSlice.actions;
 
 export default userSlice.reducer;

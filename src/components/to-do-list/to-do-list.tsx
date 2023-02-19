@@ -1,5 +1,5 @@
 import ListItem from "../list-items/list-items";
-
+import { useState } from "react";
 // for redux purposes
 import { useSelector } from "react-redux";
 import {
@@ -10,21 +10,51 @@ import {
 import { selectUserId } from "../../redux/user/userSelector";
 
 import { useEffect } from "react";
-import { toDoItemInterface } from "../../redux/to-do/toDoSlice";
-import { updateFirebase } from "../../firebase/firebase";
+import { toDoItemInterface, updateToDo } from "../../redux/to-do/toDoSlice";
+import { getDatabase, ref, child, get, onValue } from "firebase/database";
+import { updateFirebase, app } from "../../firebase/firebase";
+import { getAuth } from "firebase/auth";
 
+import { useDispatch } from "react-redux";
 const ToDoList = ({}) => {
   const toDoList = useSelector(selectToDoList);
   const uncompletedListItems = useSelector(selectToDoListUncompleted);
   const completedListItems = useSelector(selectToDoListCompleted);
   const userId = useSelector(selectUserId);
-  useEffect(() => {
-    console.log(userId);
-    console.log("Something changed");
+  const [dataUpdated, setDataUpdated] = useState(false);
+  const dispatch = useDispatch();
 
-    if (toDoList[0] && toDoList[0].waiting === true) {
-      return;
+  useEffect(() => {
+    try {
+      const database = getDatabase();
+      const dataRef = ref(database, `users/${userId}`);
+      onValue(
+        dataRef,
+        (snapshot) => {
+          if (snapshot.val() === null) {
+            dispatch(updateToDo([]));
+          } else {
+            const data = snapshot.val().ToDoList;
+            console.log(data);
+            dispatch(updateToDo(data));
+          }
+          setDataUpdated(true);
+        },
+        (error) => {
+          console.error("Error retrieving data:", error);
+        },
+        { onlyOnce: true }
+      );
+    } catch (error) {
+      console.log(error);
+      dispatch(updateToDo([]));
+      setDataUpdated(true);
     }
+  }, []);
+
+  useEffect(() => {
+    // console.log(dataUpdated);
+    if (!dataUpdated) return;
     updateFirebase(toDoList, userId);
   }, [toDoList]);
 
