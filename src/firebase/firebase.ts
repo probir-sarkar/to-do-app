@@ -3,17 +3,17 @@ import { initializeApp } from "firebase/app";
 import { getDatabase, ref, set } from "firebase/database";
 import { store } from "../redux/store";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyCbxCJ_JTHQe6gE0Mtz3FOsM88oFJemEus",
-  authDomain: "probir-to-do.firebaseapp.com",
-  databaseURL: "https://probir-to-do-default-rtdb.firebaseio.com",
-  projectId: "probir-to-do",
-  storageBucket: "probir-to-do.appspot.com",
-  messagingSenderId: "999858928078",
-  appId: "1:999858928078:web:d2d164a6ab7f2f6781939f",
-};
+// const firebaseConfig = {
+//   apiKey: "AIzaSyCbxCJ_JTHQe6gE0Mtz3FOsM88oFJemEus",
+//   authDomain: "probir-to-do.firebaseapp.com",
+//   databaseURL: "https://probir-to-do-default-rtdb.firebaseio.com",
+//   projectId: "probir-to-do",
+//   storageBucket: "probir-to-do.appspot.com",
+//   messagingSenderId: "999858928078",
+//   appId: "1:999858928078:web:d2d164a6ab7f2f6781939f",
+// };
 
-const ENV = {
+const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
   databaseURL: import.meta.env.VITE_FIREBASE_DATABASE_URL,
@@ -22,8 +22,6 @@ const ENV = {
   messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
-
-console.log(ENV);
 
 export interface toDoItemInterface {
   id: string;
