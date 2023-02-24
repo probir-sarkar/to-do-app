@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import GoogleLogo from "../../assets/svg/GoogleLogo";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/user/userSlice";
-import { auth } from "../../firebase/auth";
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { updateFirebase } from "../../firebase/firebase";
+import { createUser } from "../../firebase/auth";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -24,8 +23,8 @@ const Signup = () => {
       setLoading(false);
       return;
     }
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(({ user: { email, uid } }) => {
+    createUser(email, password)
+      .then(({ email, uid }) => {
         setError("");
         dispatch(setUser({ email, uid }));
         updateFirebase([], uid);
