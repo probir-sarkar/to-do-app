@@ -1,7 +1,7 @@
 import { useState } from "react";
 import GoogleLogo from "../../assets/svg/GoogleLogo";
 import { auth } from "../../firebase/auth";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -16,6 +16,19 @@ const Login = () => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
+        setError("");
+        navigate("/");
+        return;
+      })
+      .catch((error) => {
+        setError(error.message);
+        setLoading(false);
+      });
+  };
+  const handleSignInWithGoogle = () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+      .then((result) => {
         setError("");
         navigate("/");
         return;
@@ -41,17 +54,14 @@ const Login = () => {
           <div className="w-full p-8 lg:w-1/2">
             <h2 className="text-2xl font-semibold text-gray-700 text-center">Brand</h2>
             <p className="text-xl text-gray-600 text-center">Welcome back!</p>
-            <a
-              href="#"
-              className="flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100"
-            >
+            <div className="flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100">
               <div className="px-4 py-3">
                 <GoogleLogo />
               </div>
               <h1 className="px-4 py-3 w-5/6 text-center text-gray-600 font-bold">
-                SignIn with Google
+                <button onClick={handleSignInWithGoogle}>Login with Google</button>
               </h1>
-            </a>
+            </div>
             <div className="mt-4 flex items-center justify-between">
               <span className="border-b w-1/5 lg:w-1/4" />
               <a href="#" className="text-xs text-center text-gray-500 uppercase">
