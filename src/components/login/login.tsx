@@ -1,9 +1,7 @@
 import { useState } from "react";
 import GoogleLogo from "../../assets/svg/GoogleLogo";
-import { auth } from "../../firebase/auth";
-import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
-
+import { signIn, signInWithGoogle } from "../../firebase/auth";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,11 +12,9 @@ const Login = () => {
   const handleSubmit = (e: { preventDefault: () => void }) => {
     setLoading(true);
     e.preventDefault();
-    signInWithEmailAndPassword(auth, email, password)
+    signIn(email, password)
       .then(() => {
-        setError("");
         navigate("/");
-        return;
       })
       .catch((error) => {
         setError(error.message);
@@ -26,12 +22,10 @@ const Login = () => {
       });
   };
   const handleSignInWithGoogle = () => {
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        setError("");
+    setLoading(true);
+    signInWithGoogle()
+      .then(() => {
         navigate("/");
-        return;
       })
       .catch((error) => {
         setError(error.message);
@@ -54,13 +48,14 @@ const Login = () => {
           <div className="w-full p-8 lg:w-1/2">
             <h2 className="text-2xl font-semibold text-gray-700 text-center">Brand</h2>
             <p className="text-xl text-gray-600 text-center">Welcome back!</p>
-            <div className="flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100">
-              <div className="px-4 py-3">
+            <div
+              className="relative mt-4 rounded-lg shadow-md hover:bg-gray-100 cursor-pointer"
+              onClick={handleSignInWithGoogle}
+            >
+              <div className="px-4 py-3 absolute">
                 <GoogleLogo />
               </div>
-              <h1 className="px-4 py-3 w-5/6 text-center text-gray-600 font-bold">
-                <button onClick={handleSignInWithGoogle}>Login with Google</button>
-              </h1>
+              <h1 className="py-3 text-center text-gray-600 font-bold">Login with Google</h1>
             </div>
             <div className="mt-4 flex items-center justify-between">
               <span className="border-b w-1/5 lg:w-1/4" />

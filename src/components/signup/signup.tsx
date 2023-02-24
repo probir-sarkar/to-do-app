@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import GoogleLogo from "../../assets/svg/GoogleLogo";
-import { useDispatch } from "react-redux";
-import { setUser } from "../../redux/user/userSlice";
 import { Link, useNavigate } from "react-router-dom";
-import { updateFirebase } from "../../firebase/firebase";
-import { createUser } from "../../firebase/auth";
-import { getAuth, signInWithPopup, GoogleAuthProvider, getAdditionalUserInfo } from "firebase/auth";
+import { createUser, signInWithGoogle } from "../../firebase/auth";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -13,7 +9,6 @@ const Signup = () => {
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
@@ -25,12 +20,8 @@ const Signup = () => {
       return;
     }
     createUser(email, password)
-      .then(({ email, uid }) => {
-        setError("");
-        dispatch(setUser({ email, uid }));
-        updateFirebase([], uid);
+      .then(() => {
         navigate("/");
-        return;
       })
       .catch((error) => {
         setError(error.message);
@@ -38,18 +29,9 @@ const Signup = () => {
       });
   };
   const handleSignUpWithGoogle = () => {
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(getAuth(), provider)
-      .then((result) => {
-        const isNewUser = getAdditionalUserInfo(result)?.isNewUser;
-        if (isNewUser) {
-          const { email, uid } = result.user;
-          dispatch(setUser({ email, uid }));
-          updateFirebase([], uid);
-        }
-        setError("");
+    signInWithGoogle()
+      .then(() => {
         navigate("/");
-        return;
       })
       .catch((error) => {
         setError(error.message);
@@ -72,19 +54,18 @@ const Signup = () => {
           <div className="w-full p-8 lg:w-1/2">
             <h2 className="text-2xl font-semibold text-gray-700 text-center">Brand</h2>
             <p className="text-xl text-gray-600 text-center">Welcome back!</p>
-            <div className="flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100">
-              <div className="px-4 py-3">
+            <div
+              className="relative mt-4 rounded-lg shadow-md hover:bg-gray-100 cursor-pointer"
+              onClick={handleSignUpWithGoogle}
+            >
+              <div className="px-4 py-3 absolute">
                 <GoogleLogo />
               </div>
-              <h1 className="px-4 py-3 w-5/6 text-center text-gray-600 font-bold">
-                <button onClick={handleSignUpWithGoogle}>Sign Up with Google</button>
-              </h1>
+              <h1 className="py-3 text-center text-gray-600 font-bold">Sign Up with Google</h1>
             </div>
             <div className="mt-4 flex items-center justify-between">
               <span className="border-b w-1/5 lg:w-1/4" />
-              <a href="#" className="text-xs text-center text-gray-500 uppercase">
-                or signup with email
-              </a>
+              <p className="text-xs text-center text-gray-500 uppercase">or signup with email</p>
               <span className="border-b w-1/5 lg:w-1/4" />
             </div>
             {/* for alert section using tailwindcss */}
