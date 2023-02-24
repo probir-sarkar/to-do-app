@@ -14,10 +14,21 @@ const Signup = () => {
   const handleSubmit = (e: { preventDefault: () => void }) => {
     setLoading(true);
     e.preventDefault();
-    if (password !== passwordConfirm) {
-      setError("Passwords do not match");
-      setLoading(false);
-      return;
+    switch (true) {
+      case !email:
+        setError("Email is required");
+        setLoading(false);
+        return;
+      case !password:
+        setError("Password is required");
+        setLoading(false);
+        return;
+      case password !== passwordConfirm:
+        setError("Password does not match");
+        setLoading(false);
+        return;
+      default:
+        break;
     }
     createUser(email, password)
       .then(() => {
@@ -86,6 +97,7 @@ const Signup = () => {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  required
                 />
               </div>
               <div className="mt-4">
@@ -97,6 +109,7 @@ const Signup = () => {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  required
                 />
               </div>
               <div className="mt-4">
@@ -110,6 +123,7 @@ const Signup = () => {
                   type="password"
                   value={passwordConfirm}
                   onChange={(e) => setPasswordConfirm(e.target.value)}
+                  required
                 />
               </div>
               <div className="mt-8">

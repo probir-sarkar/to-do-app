@@ -5,13 +5,16 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   signInWithEmailAndPassword,
+  signInAnonymously,
 } from "firebase/auth";
 import { store } from "../redux/store";
 import { setUser } from "../redux/user/userSlice";
 export const auth = getAuth();
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    store.dispatch(setUser({ email: user.email, uid: user.uid }));
+    const uid = user.uid;
+    const email = user.email || "Anonymous";
+    store.dispatch(setUser({ uid, email }));
   } else {
     store.dispatch(setUser({ email: "" }));
   }
@@ -41,6 +44,19 @@ export const signInWithGoogle = async () => {
 export const signIn = async (email: string, password: string) => {
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    return userCredential.user;
+  } catch (error: any) {
+    const errorMessage = error.code.split("/")[1].replace(/-/g, " ");
+    throw new Error(errorMessage);
+  }
+};
+
+export const signInAnonymouslyUser = async () => {
+  try {
+    const userCredential = await signInAnonymously(auth);
+    const uid = userCredential.user?.uid;
+    const email = userCredential.user?.email || "";
+    store.dispatch(setUser({ uid, email }));
     return userCredential.user;
   } catch (error: any) {
     const errorMessage = error.code.split("/")[1].replace(/-/g, " ");

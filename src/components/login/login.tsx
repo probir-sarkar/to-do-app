@@ -1,7 +1,9 @@
 import { useState } from "react";
 import GoogleLogo from "../../assets/svg/GoogleLogo";
+import IncognitoSVG from "../../assets/svg/incognitoSVG";
 import { Link, useNavigate } from "react-router-dom";
-import { signIn, signInWithGoogle } from "../../firebase/auth";
+import { signIn, signInWithGoogle, signInAnonymouslyUser } from "../../firebase/auth";
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -33,6 +35,18 @@ const Login = () => {
       });
   };
 
+  const handleSignInAnonymously = () => {
+    setLoading(true);
+    signInAnonymouslyUser()
+      .then(() => {
+        navigate("/");
+      })
+      .catch((error) => {
+        setError(error.message);
+        setLoading(false);
+      });
+  };
+
   return (
     <>
       {/* component */}
@@ -49,7 +63,7 @@ const Login = () => {
             <h2 className="text-2xl font-semibold text-gray-700 text-center">Brand</h2>
             <p className="text-xl text-gray-600 text-center">Welcome back!</p>
             <div
-              className="relative mt-4 rounded-lg shadow-md hover:bg-gray-100 cursor-pointer"
+              className="relative mt-4 rounded-lg shadow-md  hover:bg-gray-100 cursor-pointer"
               onClick={handleSignInWithGoogle}
             >
               <div className="px-4 py-3 absolute">
@@ -57,11 +71,18 @@ const Login = () => {
               </div>
               <h1 className="py-3 text-center text-gray-600 font-bold">Login with Google</h1>
             </div>
+            <div
+              className="relative mt-4 rounded-lg shadow-md bg-gray-900 hover:bg-gray-800 cursor-pointer"
+              onClick={handleSignInAnonymously}
+            >
+              <div className="px-4 py-3 absolute">
+                <IncognitoSVG />
+              </div>
+              <h1 className="py-3 text-center text-white font-bold">Login as guest</h1>
+            </div>
             <div className="mt-4 flex items-center justify-between">
               <span className="border-b w-1/5 lg:w-1/4" />
-              <a href="#" className="text-xs text-center text-gray-500 uppercase">
-                or SignIn with email
-              </a>
+              <p className="text-xs text-center text-gray-500 uppercase">or SignIn with email</p>
               <span className="border-b w-1/5 lg:w-1/4" />
             </div>
             {/* for alert section using tailwindcss */}
@@ -108,9 +129,10 @@ const Login = () => {
 
             <div className="mt-4 flex items-center justify-between">
               <span className="border-b w-1/5 md:w-1/4" />
-              <a href="#" className="text-xs text-gray-500 uppercase">
-                or <Link to="/signup">SignUp</Link>
-              </a>
+              <Link to="/signup" className="text-xs text-gray-500 uppercase">
+                or SignUp
+              </Link>
+
               <span className="border-b w-1/5 md:w-1/4" />
             </div>
           </div>
