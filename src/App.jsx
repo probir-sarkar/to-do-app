@@ -6,11 +6,13 @@ import Login from "./components/login/login";
 import { useState, useEffect } from "react";
 import Signup from "./components/signup/signup";
 import PrivateRoute from "./utils/private-route";
+import ForgotPassword from "./components/ForgotPassword";
 
 const BrowserRouter = createBrowserRouter([
   { path: "/", element: <PrivateRoute component={ToDoContainer} /> },
   { path: "/login", element: <Login /> },
   { path: "/signup", element: <Signup /> },
+  { path: "/forgot-password", element: <ForgotPassword /> },
 ]);
 
 function App() {

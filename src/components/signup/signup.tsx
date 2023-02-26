@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import GoogleLogo from "../../assets/svg/GoogleLogo";
 import { Link, useNavigate } from "react-router-dom";
 import { createUser, signInWithGoogle } from "../../firebase/auth";
+import Alert from "../Alert";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
-  const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
+  const [isError, setIsError] = useState(false); // [false, (value: boolean) => void
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -16,15 +18,18 @@ const Signup = () => {
     e.preventDefault();
     switch (true) {
       case !email:
-        setError("Email is required");
+        setMessage("Email is required");
+        setIsError(true);
         setLoading(false);
         return;
       case !password:
-        setError("Password is required");
+        setMessage("Password is required");
+        setIsError(true);
         setLoading(false);
         return;
       case password !== passwordConfirm:
-        setError("Password does not match");
+        setMessage("Password does not match");
+        setIsError(true);
         setLoading(false);
         return;
       default:
@@ -32,10 +37,12 @@ const Signup = () => {
     }
     createUser(email, password)
       .then(() => {
-        navigate("/");
+        setIsError(false);
+        setMessage("Account created. Please confirm your email and login");
       })
       .catch((error) => {
-        setError(error.message);
+        setMessage(error.message);
+        setIsError(true);
         setLoading(false);
       });
   };
@@ -45,7 +52,7 @@ const Signup = () => {
         navigate("/");
       })
       .catch((error) => {
-        setError(error.message);
+        setMessage(error.message);
         setLoading(false);
       });
   };
@@ -80,15 +87,7 @@ const Signup = () => {
               <span className="border-b w-1/5 lg:w-1/4" />
             </div>
             {/* for alert section using tailwindcss */}
-            {error && (
-              <div
-                className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-4"
-                role="alert"
-              >
-                <strong className="font-bold">Error! </strong>
-                <span className="block sm:inline">{error}</span>
-              </div>
-            )}
+            {message && <Alert error={isError} message={message} />}
             <form className="mt-4" onSubmit={handleSubmit}>
               <div className="mt-4">
                 <label className="block text-gray-700 text-sm font-bold mb-2">Email Address</label>

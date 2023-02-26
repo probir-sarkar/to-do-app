@@ -116,7 +116,14 @@ const Login = () => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
-              <div className="mt-8">
+              {/* forgot password */}
+              <div className="mt-2 text-right">
+                <Link to="/forgot-password" className="text-xs text-gray-500  hover:text-gray-700">
+                  Forgot Password?
+                </Link>
+              </div>
+              {/* submit button */}
+              <div className="mt-4">
                 <button
                   type="submit"
                   className="bg-gray-700 text-white font-bold py-2 px-4 w-full rounded hover:bg-gray-600"

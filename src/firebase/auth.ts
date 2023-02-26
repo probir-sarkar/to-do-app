@@ -6,6 +6,8 @@ import {
   GoogleAuthProvider,
   signInWithEmailAndPassword,
   signInAnonymously,
+  sendEmailVerification,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import { store } from "../redux/store";
 import { setUser } from "../redux/user/userSlice";
@@ -23,6 +25,7 @@ onAuthStateChanged(auth, (user) => {
 export const createUser = async (email: string, password: string) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    sendEmailVerification(userCredential.user!);
     return userCredential.user;
   } catch (error: any) {
     const errorMessage = error.code.split("/")[1].replace(/-/g, " ");
@@ -44,9 +47,14 @@ export const signInWithGoogle = async () => {
 export const signIn = async (email: string, password: string) => {
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const emailVerified = userCredential.user.emailVerified;
+    if (!emailVerified) {
+      const errorMessage = "Email not verified - Please check your email";
+      throw new Error(errorMessage);
+    }
     return userCredential.user;
   } catch (error: any) {
-    const errorMessage = error.code.split("/")[1].replace(/-/g, " ");
+    const errorMessage = error.code?.split("/")[1].replace(/-/g, " ") || error.message;
     throw new Error(errorMessage);
   }
 };
@@ -58,6 +66,15 @@ export const signInAnonymouslyUser = async () => {
     const email = userCredential.user?.email || "";
     store.dispatch(setUser({ uid, email }));
     return userCredential.user;
+  } catch (error: any) {
+    const errorMessage = error.code.split("/")[1].replace(/-/g, " ");
+    throw new Error(errorMessage);
+  }
+};
+
+export const resetPassword = async (email: string) => {
+  try {
+    await sendPasswordResetEmail(auth, email);
   } catch (error: any) {
     const errorMessage = error.code.split("/")[1].replace(/-/g, " ");
     throw new Error(errorMessage);
