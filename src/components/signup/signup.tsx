@@ -66,11 +66,11 @@ const Signup = () => {
             className="hidden lg:block lg:w-1/2 bg-cover"
             style={{
               backgroundImage:
-                'url("https://images.unsplash.com/photo-1546514714-df0ccc50d7bf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=667&q=80")',
+                'url("https://images.unsplash.com/photo-1593238350103-81a14cce9c54?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=60")',
             }}
           />
           <div className="w-full p-8 lg:w-1/2">
-            <h2 className="text-2xl font-semibold text-gray-700 text-center">Brand</h2>
+            <h2 className="text-2xl font-semibold text-gray-700 text-center">Taskify</h2>
             <p className="text-xl text-gray-600 text-center">Welcome back!</p>
             <div
               className="relative mt-4 rounded-lg shadow-md hover:bg-gray-100 cursor-pointer"
