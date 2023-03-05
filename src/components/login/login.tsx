@@ -51,8 +51,8 @@ const Login = () => {
   return (
     <>
       {/* component */}
-      <div className="py-6">
-        <div className="flex bg-white rounded-lg shadow-lg overflow-hidden mx-auto max-w-sm lg:max-w-4xl">
+      <div className="flex items-center justify-center h-screen">
+        <div className="flex bg-white rounded-lg shadow-2xl  overflow-hidden mx-auto max-w-sm lg:max-w-4xl w-full">
           <div
             className="hidden lg:block lg:w-1/2 bg-cover"
             style={{
@@ -126,7 +126,7 @@ const Login = () => {
               <div className="mt-4">
                 <button
                   type="submit"
-                  className="bg-gray-700 text-white font-bold py-2 px-4 w-full rounded hover:bg-gray-600"
+                  className="bg-gray-700 text-white font-bold py-2 px-4 w-full rounded hover:bg-sky-900"
                   disabled={loading}
                 >
                   SIGN IN

@@ -1,9 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+// import another scss file
 body {
-  background-color: #ffd1e1;
-  background-image: linear-gradient(0deg, #ffd1e1 0%, #b2f7f5 100%);
-  background-repeat: no-repeat;
+  // 2c6cbc,71c3f7,f6f6f6 make a gradient
+  background: linear-gradient(90deg, #2c6cbc 0%, #71c3f7 100%, #f6f6f6 100%);
 }

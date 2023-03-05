@@ -34,8 +34,8 @@ const ForgotPassword = () => {
   return (
     <>
       {/* component */}
-      <div className="py-6">
-        <div className="flex bg-white rounded-lg shadow-lg overflow-hidden mx-auto max-w-sm lg:max-w-4xl">
+      <div className="flex items-center justify-center h-screen">
+        <div className="flex bg-white rounded-lg shadow-lg overflow-hidden mx-auto max-w-sm lg:max-w-4xl w-full">
           <div
             className="hidden lg:block lg:w-1/2 bg-cover"
             style={{
