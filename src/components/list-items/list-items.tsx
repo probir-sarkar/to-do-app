@@ -56,7 +56,7 @@ const ListItem = ({ item }: ListItemsProps) => {
           className={`mr-2 
           ${animate ? animateClass : ""}`}
           onClick={waitAndComplete}
-          size="2x"
+          size="lg"
         />
         <p className="px-4 py-2 md:text-xl">{done ? <del>{text}</del> : text}</p>
       </div>
