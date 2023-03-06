@@ -19,11 +19,11 @@ const ToDoInput = () => {
   return (
     <>
       <div className=" w-11/12 md:w-8/12 lg:w-6/12 mx-auto">
-        <form className="bg-slate-700 rounded-lg flex p-2 shadow-2xl " onSubmit={handleAddToDo}>
+        <form className="bg-gray-600 rounded-lg flex p-2 shadow-2xl " onSubmit={handleAddToDo}>
           {/* input */}
           <input
             type="text"
-            className="bg-slate-700 text-white text-lg px-4 py-1 w-full focus:outline-none"
+            className="bg-gray-600 text-white  px-4 py-1 w-full focus:outline-none"
             placeholder="Add a new task"
             value={toDoItem}
             onChange={(e) => setToDoItem(e.target.value)}
