@@ -23,7 +23,7 @@ const ToDoInput = () => {
           {/* input */}
           <input
             type="text"
-            className="bg-slate-700 text-white text-lg px-4 py-2 w-full focus:outline-none"
+            className="bg-slate-700 text-white text-lg px-4 py-1 w-full focus:outline-none"
             placeholder="Add a new task"
             value={toDoItem}
             onChange={(e) => setToDoItem(e.target.value)}
