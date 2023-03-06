@@ -2,7 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 // import another scss file
+// body {
+//   background-color: #fff;
+//   background-image: linear-gradient(to right bottom, #cfd9df, #e2ebf0, #f2f6f8, #ffffff);
+//   background-repeat: no-repeat;
+//   background-size: cover;
+//   background-attachment: fixed;
+//   font-family: "Roboto", sans-serif;
+// }
 body {
-  // light gray background
-  background-color: #f5f5f5;
+  background-color: #fff;
+  background-image: url("./assets/images/bg.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
 }

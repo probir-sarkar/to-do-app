@@ -18,11 +18,11 @@ const ToDoInput = () => {
   return (
     <>
       <div className=" w-11/12 md:w-8/12 lg:w-6/12 mx-auto">
-        <div className="bg-gray-100 flex p-2 rounded-full">
+        <div className="bg-white rounded flex p-2 shadow-2xl border-2 border-gray-700 ">
           {/* input */}
           <input
             type="text"
-            className="bg-gray-100 rounded-full px-4 py-2 w-full focus:outline-none"
+            className=" px-4 py-2 w-full focus:outline-none"
             placeholder="Add a new task"
             value={toDoItem}
             onChange={(e) => setToDoItem(e.target.value)}
@@ -31,7 +31,7 @@ const ToDoInput = () => {
           <button
             type="button"
             title="Add"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             onClick={handleAddToDo}
           >
             <FontAwesomeIcon icon={faArrowRight} />

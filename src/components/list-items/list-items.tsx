@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheckCircle, faCircle } from "@fortawesome/free-regular-svg-icons";
+import { faCircle } from "@fortawesome/free-regular-svg-icons";
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
 import "animate.css";
 
@@ -39,29 +40,28 @@ const ListItem = ({ item }: ListItemsProps) => {
   };
 
   const icon = done ? faCheckCircle : faCircle;
-  const color = done ? "text-green-500" : "text-gray-500";
   const animateClass = done
     ? "animate__animated animate__bounceIn"
     : "animate__animated animate__bounceOut";
 
   return (
     <div
-      className={`flex justify-between items-center bg-gray-100 rounded-full my-2 p-2 mx-auto 
-          ${done ? "bg-green-100" : ""}
-          `}
+      className={`flex justify-between bg-black bg-opacity-50 rounded my-2 p-2
+    ${done ? "text-gray-300" : "text-white"}
+    `}
     >
       <div className="flex items-center">
         <FontAwesomeIcon
           icon={icon}
-          className={`mr-2  ${color}
+          className={`mr-2 
           ${animate ? animateClass : ""}`}
           onClick={waitAndComplete}
           size="2x"
         />
-        <p className="text-gray-700 px-4 py-2">{done ? <del>{text}</del> : text}</p>
+        <p className="px-4 py-2 text-xl">{done ? <del>{text}</del> : text}</p>
       </div>
       <button
-        className={`bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full`}
+        className={`bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded`}
         onClick={(e) => waitAndDelete(e)}
       >
         Delete
