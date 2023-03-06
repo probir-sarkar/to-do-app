@@ -1,15 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-// import another scss file
-// body {
-//   background-color: #fff;
-//   background-image: linear-gradient(to right bottom, #cfd9df, #e2ebf0, #f2f6f8, #ffffff);
-//   background-repeat: no-repeat;
-//   background-size: cover;
-//   background-attachment: fixed;
-//   font-family: "Roboto", sans-serif;
-// }
+
 body {
   background-color: #fff;
   background-image: url("./assets/images/bg.webp");
