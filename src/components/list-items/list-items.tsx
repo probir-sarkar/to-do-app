@@ -29,14 +29,14 @@ const ListItem = ({ item }: ListItemsProps) => {
     setTimeout(() => {
       dispatch(toggleStatusToDo(id));
       setAnimate(false);
-    }, 500);
+    }, 250);
   };
   const waitAndDelete = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const target = e.target as HTMLElement;
     target.classList.add("animate__animated", "animate__zoomOut");
     setTimeout(() => {
       dispatch(removeToDo(id));
-    }, 500);
+    }, 100);
   };
 
   const icon = done ? faCheckCircle : faCircle;
