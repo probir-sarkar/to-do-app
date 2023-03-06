@@ -19,25 +19,18 @@ const ToDoInput = () => {
   return (
     <>
       <div className=" w-11/12 md:w-8/12 lg:w-6/12 mx-auto">
-        <form
-          className="bg-white rounded flex p-2 shadow-2xl border-2 border-gray-700"
-          onSubmit={handleAddToDo}
-        >
+        <form className="bg-slate-700 rounded-lg flex p-2 shadow-2xl " onSubmit={handleAddToDo}>
           {/* input */}
           <input
             type="text"
-            className=" px-4 py-2 w-full focus:outline-none"
+            className="bg-slate-700 text-white text-lg px-4 py-2 w-full focus:outline-none"
             placeholder="Add a new task"
             value={toDoItem}
             onChange={(e) => setToDoItem(e.target.value)}
           />
           {/* add button with icon and hover effects and transitions*/}
-          <button
-            type="submit"
-            title="Add"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          >
-            <FontAwesomeIcon icon={faArrowRight} />
+          <button type="submit" title="Add" className=" text-white py-2 px-6">
+            <FontAwesomeIcon icon={faArrowRight} size="lg" />
           </button>
         </form>
       </div>
