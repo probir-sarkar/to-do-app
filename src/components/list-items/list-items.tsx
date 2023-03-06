@@ -58,7 +58,7 @@ const ListItem = ({ item }: ListItemsProps) => {
           onClick={waitAndComplete}
           size="2x"
         />
-        <p className="px-4 py-2 text-xl">{done ? <del>{text}</del> : text}</p>
+        <p className="px-4 py-2 md:text-xl">{done ? <del>{text}</del> : text}</p>
       </div>
       <button
         className={`bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded`}
